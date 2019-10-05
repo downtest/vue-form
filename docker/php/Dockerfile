@@ -5,9 +5,12 @@ WORKDIR /var/www/html
 RUN apk add --no-cache $PHPIZE_DEPS \
 
     # Устанавливаем расишрения php
+    && apk --no-cache add postgresql-dev \
+    && docker-php-ext-install pdo pdo_pgsql pgsql \
     && pecl install redis-4.0.1 \
     && pecl install xdebug-2.7.2 \
-    && docker-php-ext-enable redis xdebug \
+    && docker-php-ext-enable redis xdebug pdo pdo_pgsql pgsql \
+
 
     # Git
     && apk update \
