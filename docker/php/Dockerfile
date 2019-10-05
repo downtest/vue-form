@@ -3,12 +3,16 @@ FROM php:7.3-fpm-alpine3.9
 WORKDIR /var/www/html
 
 RUN apk add --no-cache $PHPIZE_DEPS \
+
+    # Устанавливаем расишрения php
     && pecl install redis-4.0.1 \
     && pecl install xdebug-2.7.2 \
     && docker-php-ext-enable redis xdebug \
+
     # Git
     && apk update \
     && apk add git \
+
     # Устанавливаем composer
     && echo "Устанавливаем composer" \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
@@ -17,5 +21,3 @@ RUN apk add --no-cache $PHPIZE_DEPS \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
     && cd /var/www/html 
-
-

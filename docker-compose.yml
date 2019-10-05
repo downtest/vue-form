@@ -16,3 +16,12 @@ services:
       - ./app:/var/www/html
     expose: 
       - 9000
+
+  node:
+    image: node:8.16.1-alpine
+    working_dir: /var/www/html
+    volumes:
+      - ./app:/var/www/html
+    expose: 
+      - 9000
+    command: sh -c 'npm install'
