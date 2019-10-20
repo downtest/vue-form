@@ -11,7 +11,7 @@
     </head>
     <body>
         <div id="app">
-            <example-component></example-component>
+            <order-form></order-form>
         </div>
 
         <script type="text/javascript" src="{{ URL::asset('js/app.js') }}"></script>
