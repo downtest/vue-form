@@ -11,26 +11,50 @@
           <form>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Телефон</label>
+              <label :class="{
+                'col-sm-2': true,
+                'col-form-label': true,
+                'text-danger': this.errors.hasOwnProperty('phone'),
+              }">Телефон</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="+79516682774" v-model="phone">
+                <input type="text" :class="{
+                  'form-control': true,
+                  'is-invalid': this.errors.hasOwnProperty('phone'),
+                }" placeholder="+79516682774" v-model="phone">
+                <small class="text-danger" v-if="errors.hasOwnProperty('phone')">{{this.errors.phone[0]}}</small>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Имя</label>
+              <label :class="{
+                'col-sm-2': true,
+                'col-form-label': true,
+                'text-danger': this.errors.hasOwnProperty('name'),
+              }">Имя</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Ваше имя" v-model="name">
+                <input type="text" :class="{
+                  'form-control': true,
+                  'is-invalid': this.errors.hasOwnProperty('name'),
+                }" placeholder="+79516682774" v-model="name">
+                <small class="text-danger" v-if="errors.hasOwnProperty('name')">{{this.errors.name[0]}}</small>
               </div>
             </div>
 
             <div class="form-group row">
-              <label class="col-sm-2 col-form-label">Адрес</label>
+              <label :class="{
+                'col-sm-2': true,
+                'col-form-label': true,
+                'text-danger': this.errors.hasOwnProperty('address'),
+              }">Адрес</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Адрес доставки" v-model="address">
+                <input type="text" :class="{
+                  'form-control': true,
+                  'is-invalid': this.errors.hasOwnProperty('address'),
+                }" placeholder="+79516682774" v-model="address">
+                <small class="text-danger" v-if="errors.hasOwnProperty('address')">{{this.errors.address[0]}}</small>
               </div>
             </div>
-
+            
             <div class="form-group row">
               <label class="col-sm-12 col-form-label">Выберите тариф</label>
 
@@ -118,6 +142,7 @@
           'Вс',
         ],
         firstDay: null,
+        errors: {},
       }
     },
     mounted() {
@@ -179,7 +204,15 @@
           }),
         })
           .then(data => {return data.json()})
-          .then(data => {console.log(data)});
+          .then(data => {
+            if (!data.status) {
+              this.errors = data.errors;
+              for (var error in data.errors) {
+                console.log(error, 'index')
+                console.log(data.errors[error])
+              }
+            }
+          });
 
         return false
       },

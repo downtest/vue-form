@@ -1939,6 +1939,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1948,7 +1972,8 @@ __webpack_require__.r(__webpack_exports__);
       tariffs: [],
       selectedTariff: null,
       daysOfWeek: ['Пон', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вс'],
-      firstDay: null
+      firstDay: null,
+      errors: {}
     };
   },
   mounted: function mounted() {
@@ -1993,6 +2018,8 @@ __webpack_require__.r(__webpack_exports__);
       return this.name && this.phone && this.address && this.selectedTariff && this.firstDay;
     },
     send: function send() {
+      var _this2 = this;
+
       fetch('/order', {
         method: 'POST',
         headers: {
@@ -2009,7 +2036,14 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         return data.json();
       }).then(function (data) {
-        console.log(data);
+        if (!data.status) {
+          _this2.errors = data.errors;
+
+          for (var error in data.errors) {
+            console.log(error, 'index');
+            console.log(data.errors[error]);
+          }
+        }
       });
       return false;
     }
@@ -37968,9 +38002,17 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _c("form", [
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-2 col-form-label" }, [
-                  _vm._v("Телефон")
-                ]),
+                _c(
+                  "label",
+                  {
+                    class: {
+                      "col-sm-2": true,
+                      "col-form-label": true,
+                      "text-danger": this.errors.hasOwnProperty("phone")
+                    }
+                  },
+                  [_vm._v("Телефон")]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-10" }, [
                   _c("input", {
@@ -37982,7 +38024,10 @@ var render = function() {
                         expression: "phone"
                       }
                     ],
-                    staticClass: "form-control",
+                    class: {
+                      "form-control": true,
+                      "is-invalid": this.errors.hasOwnProperty("phone")
+                    },
                     attrs: { type: "text", placeholder: "+79516682774" },
                     domProps: { value: _vm.phone },
                     on: {
@@ -37993,14 +38038,28 @@ var render = function() {
                         _vm.phone = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.hasOwnProperty("phone")
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(this.errors.phone[0]))
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-2 col-form-label" }, [
-                  _vm._v("Имя")
-                ]),
+                _c(
+                  "label",
+                  {
+                    class: {
+                      "col-sm-2": true,
+                      "col-form-label": true,
+                      "text-danger": this.errors.hasOwnProperty("name")
+                    }
+                  },
+                  [_vm._v("Имя")]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-10" }, [
                   _c("input", {
@@ -38012,8 +38071,11 @@ var render = function() {
                         expression: "name"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "Ваше имя" },
+                    class: {
+                      "form-control": true,
+                      "is-invalid": this.errors.hasOwnProperty("name")
+                    },
+                    attrs: { type: "text", placeholder: "+79516682774" },
                     domProps: { value: _vm.name },
                     on: {
                       input: function($event) {
@@ -38023,14 +38085,28 @@ var render = function() {
                         _vm.name = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.hasOwnProperty("name")
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(this.errors.name[0]))
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-2 col-form-label" }, [
-                  _vm._v("Адрес")
-                ]),
+                _c(
+                  "label",
+                  {
+                    class: {
+                      "col-sm-2": true,
+                      "col-form-label": true,
+                      "text-danger": this.errors.hasOwnProperty("address")
+                    }
+                  },
+                  [_vm._v("Адрес")]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-sm-10" }, [
                   _c("input", {
@@ -38042,8 +38118,11 @@ var render = function() {
                         expression: "address"
                       }
                     ],
-                    staticClass: "form-control",
-                    attrs: { type: "text", placeholder: "Адрес доставки" },
+                    class: {
+                      "form-control": true,
+                      "is-invalid": this.errors.hasOwnProperty("address")
+                    },
+                    attrs: { type: "text", placeholder: "+79516682774" },
                     domProps: { value: _vm.address },
                     on: {
                       input: function($event) {
@@ -38053,7 +38132,13 @@ var render = function() {
                         _vm.address = $event.target.value
                       }
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.errors.hasOwnProperty("address")
+                    ? _c("small", { staticClass: "text-danger" }, [
+                        _vm._v(_vm._s(this.errors.address[0]))
+                      ])
+                    : _vm._e()
                 ])
               ]),
               _vm._v(" "),

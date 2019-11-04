@@ -16,6 +16,7 @@ RUN apk add --no-cache $PHPIZE_DEPS \
     && apk update \
     && apk add git \
 
+
     # Устанавливаем composer
     && echo "Устанавливаем composer" \
     && php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
