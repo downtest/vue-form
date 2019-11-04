@@ -1,11 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
-use App\User;
-use App\Tariff;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,43 +11,8 @@ use App\Tariff;
 |
 */
 
-Route::get('/', function () {
-	$users = User::all();
-	dump($users);
+Route::get('/', 'OrderController@index');
 
-	$tariffs = Tariff::all();
-	$tariffs->each(function($item){
-		echo "{$item->name} ({$item->days})<br>";
-	});
+Route::post('/get-tariffs', 'OrderController@getTariffs');
 
-    
-    return view('form', [
-    	'tariffs' => $tariffs->toArray(),
-    ]);
-});
-
-Route::post('/get-tariffs', function(){
-	return response()->json(Tariff::all()->toArray());
-});
-
-Route::post('order', function(Request $request){
-	$validator = Validator::make($request->all(), [
-        'name' => 'required|string|min:3',
-        'phone' => 'required|string|min:7',
-        'tariff' => 'required|int|min:1',
-        'firstDay' => 'required|int|between:1,7',
-    ]);
-
-	if ($validator->fails()) {
-        return response()->json([
-        	'status' => false,
-        	'errors' => $validator->errors(),
-        ]);
-    }
-
-
-	return response()->json([
-    	'status' => true,
-    	'data' => $request->all(),
-    ]);
-});
+Route::post('order', 'OrderController@order');

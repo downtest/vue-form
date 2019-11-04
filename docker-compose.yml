@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 
 services:
 
@@ -27,7 +27,7 @@ services:
     command: sh -c 'npm install'
 
   db:
-    image: postgres:12.0-alpine
+    image: postgres:12.0
     restart: always
     environment:
       POSTGRES_DB: gfapp
@@ -37,7 +37,7 @@ services:
       - 5432:5432
 
   adminer:
-    image: adminer
+    image: adminer:4.7.4
     restart: always
     ports:
       - 8080:8080

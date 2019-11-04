@@ -1933,15 +1933,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      'name': null,
-      'phone': null,
-      'tariffs': [],
-      'selectedTariff': null,
-      'daysOfWeek': ['Пон', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вс'],
-      'firstDay': null
+      name: null,
+      phone: null,
+      address: null,
+      tariffs: [],
+      selectedTariff: null,
+      daysOfWeek: ['Пон', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вс'],
+      firstDay: null
     };
   },
   mounted: function mounted() {
@@ -1983,7 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedTariff = tariff;
     },
     isSendAvailable: function isSendAvailable() {
-      return this.name && this.phone && this.selectedTariff && this.firstDay;
+      return this.name && this.phone && this.address && this.selectedTariff && this.firstDay;
     },
     send: function send() {
       fetch('/order', {
@@ -1995,6 +2002,7 @@ __webpack_require__.r(__webpack_exports__);
         body: JSON.stringify({
           name: this.name,
           phone: this.phone,
+          address: this.address,
           tariff: this.selectedTariff.id,
           firstDay: this.firstDay
         })
@@ -38013,6 +38021,36 @@ var render = function() {
                           return
                         }
                         _vm.name = $event.target.value
+                      }
+                    }
+                  })
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group row" }, [
+                _c("label", { staticClass: "col-sm-2 col-form-label" }, [
+                  _vm._v("Адрес")
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-sm-10" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address,
+                        expression: "address"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text", placeholder: "Адрес доставки" },
+                    domProps: { value: _vm.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address = $event.target.value
                       }
                     }
                   })

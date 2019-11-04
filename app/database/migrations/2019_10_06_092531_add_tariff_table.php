@@ -17,7 +17,7 @@ class AddTariffTable extends Migration
 
         Schema::create('clients', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('phone')->unique();
             $table->timestamps();
         });
@@ -52,10 +52,11 @@ class AddTariffTable extends Migration
             ]
         ]);
 
-        Schema::create('user_tariff', function (Blueprint $table) {
-            $table->bigInteger('user_id')->foreign();
+        Schema::create('client_tariff', function (Blueprint $table) {
+            $table->bigInteger('client_id')->foreign();
             $table->integer('tariff_id');
             $table->tinyInteger('first_day');
+            $table->string('address');
             $table->dateTime('created_at');
         });
     }

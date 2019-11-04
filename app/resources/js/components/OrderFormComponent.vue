@@ -24,6 +24,12 @@
               </div>
             </div>
 
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Адрес</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" placeholder="Адрес доставки" v-model="address">
+              </div>
+            </div>
 
             <div class="form-group row">
               <label class="col-sm-12 col-form-label">Выберите тариф</label>
@@ -97,11 +103,12 @@
   export default {
     data() {
       return {
-        'name': null,
-        'phone': null,
-        'tariffs': [],
-        'selectedTariff': null,
-        'daysOfWeek': [
+        name: null,
+        phone: null,
+        address: null,
+        tariffs: [],
+        selectedTariff: null,
+        daysOfWeek: [
           'Пон',
           'Вт',
           'Ср',
@@ -110,7 +117,7 @@
           'Суб',
           'Вс',
         ],
-        'firstDay': null,
+        firstDay: null,
       }
     },
     mounted() {
@@ -152,6 +159,7 @@
       isSendAvailable() {
         return this.name 
           && this.phone
+          && this.address
           && this.selectedTariff
           && this.firstDay;
       },
@@ -165,6 +173,7 @@
           body: JSON.stringify({
             name: this.name,
             phone: this.phone,
+            address: this.address,
             tariff: this.selectedTariff.id,
             firstDay: this.firstDay,
           }),

@@ -14,4 +14,5 @@ class Tariff extends Model
     	'price',
     	'days',
     ];
+    
 }
