@@ -1,8 +1,14 @@
+ARG USER_ID
+ARG GROUP_ID
+
 FROM php:7.3-fpm-alpine3.9
 
 WORKDIR /var/www/html
 
 RUN apk add --no-cache $PHPIZE_DEPS \
+
+    # Создаём такого же пользователя, как и на хосте
+    && addgroup -S $GROUP_ID && adduser -S $USER_ID -G $GROUP_ID \
 
     # Устанавливаем расишрения php
     && apk --no-cache add postgresql-dev \
@@ -25,3 +31,5 @@ RUN apk add --no-cache $PHPIZE_DEPS \
     && php -r "unlink('composer-setup.php');" \
     && mv composer.phar /usr/local/bin/composer \
     && cd /var/www/html 
+ 
+USER $USER_ID

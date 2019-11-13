@@ -13,6 +13,11 @@ services:
 
   php:
     build: ./docker/php
+    build: 
+      context: ./docker/php
+      args:
+        USER_ID: $(id -u) 
+        GROUP_ID: $(id -g) 
     restart: always
     volumes:
       - ./app:/var/www/html

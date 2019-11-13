@@ -33,6 +33,9 @@ cd ./morozov-test
 # Поднимаем docker-контейнеры
 docker-compose up --build -d
 
+# Установливаем php зависимости composer`ом
+docker-compose exec php php artisan migrate
+
 # Делаем миграцию
 docker-compose exec php php artisan migrate
 ```
