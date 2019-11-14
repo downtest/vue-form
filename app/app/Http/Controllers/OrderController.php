@@ -15,9 +15,6 @@ class OrderController extends Controller
 	 */
 	public function index()
 	{
-		$users = Client::with(['tariffs'])->get();
-		dump($users);
-	    
 	    return view('form', [
 	    	'tariffs' => Tariff::all(),
 	    ]);

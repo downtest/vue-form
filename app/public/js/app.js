@@ -1963,6 +1963,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1973,7 +1977,8 @@ __webpack_require__.r(__webpack_exports__);
       selectedTariff: null,
       daysOfWeek: ['Пон', 'Вт', 'Ср', 'Чт', 'Пт', 'Суб', 'Вс'],
       firstDay: null,
-      errors: {}
+      errors: {},
+      alreadySend: false
     };
   },
   mounted: function mounted() {
@@ -2036,6 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         return data.json();
       }).then(function (data) {
+        // Обрабатываем ошибки валидации
         if (!data.status) {
           _this2.errors = data.errors;
 
@@ -2043,7 +2049,14 @@ __webpack_require__.r(__webpack_exports__);
             console.log(error, 'index');
             console.log(data.errors[error]);
           }
-        }
+
+          return;
+        } else {
+          _this2.errors = null;
+        } // Успешная отправка
+
+
+        _this2.alreadySend = true;
       });
       return false;
     }
@@ -37995,272 +38008,188 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-md-8" }, [
         _c("div", { staticClass: "card" }, [
-          _c("div", { staticClass: "card-header" }, [
-            _vm._v("GrowFood Форма заказа")
-          ]),
+          _c("div", { staticClass: "card-header" }, [_vm._v("Форма заказа")]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _c("form", [
-              _c("div", { staticClass: "form-group row" }, [
-                _c(
-                  "label",
-                  {
-                    class: {
-                      "col-sm-2": true,
-                      "col-form-label": true,
-                      "text-danger": this.errors.hasOwnProperty("phone")
-                    }
-                  },
-                  [_vm._v("Телефон")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-10" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.phone,
-                        expression: "phone"
-                      }
-                    ],
-                    class: {
-                      "form-control": true,
-                      "is-invalid": this.errors.hasOwnProperty("phone")
-                    },
-                    attrs: { type: "text", placeholder: "+79516682774" },
-                    domProps: { value: _vm.phone },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.phone = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors.hasOwnProperty("phone")
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(this.errors.phone[0]))
-                      ])
-                    : _vm._e()
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c(
-                  "label",
-                  {
-                    class: {
-                      "col-sm-2": true,
-                      "col-form-label": true,
-                      "text-danger": this.errors.hasOwnProperty("name")
-                    }
-                  },
-                  [_vm._v("Имя")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-10" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.name,
-                        expression: "name"
-                      }
-                    ],
-                    class: {
-                      "form-control": true,
-                      "is-invalid": this.errors.hasOwnProperty("name")
-                    },
-                    attrs: { type: "text", placeholder: "+79516682774" },
-                    domProps: { value: _vm.name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.name = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors.hasOwnProperty("name")
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(this.errors.name[0]))
-                      ])
-                    : _vm._e()
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c(
-                  "label",
-                  {
-                    class: {
-                      "col-sm-2": true,
-                      "col-form-label": true,
-                      "text-danger": this.errors.hasOwnProperty("address")
-                    }
-                  },
-                  [_vm._v("Адрес")]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-10" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.address,
-                        expression: "address"
-                      }
-                    ],
-                    class: {
-                      "form-control": true,
-                      "is-invalid": this.errors.hasOwnProperty("address")
-                    },
-                    attrs: { type: "text", placeholder: "+79516682774" },
-                    domProps: { value: _vm.address },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.address = $event.target.value
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm.errors.hasOwnProperty("address")
-                    ? _c("small", { staticClass: "text-danger" }, [
-                        _vm._v(_vm._s(this.errors.address[0]))
-                      ])
-                    : _vm._e()
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group row" }, [
-                _c("label", { staticClass: "col-sm-12 col-form-label" }, [
-                  _vm._v("Выберите тариф")
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-sm-12" }, [
-                  _c(
-                    "div",
-                    { staticClass: "list-group" },
-                    _vm._l(_vm.tariffs, function(tariff) {
-                      return _c(
-                        "a",
-                        {
-                          class: _vm.getTariffClasses(tariff.id),
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              return _vm.selectTariff(tariff)
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "d-flex w-100 justify-content-between"
-                            },
-                            [
-                              _c("h5", { staticClass: "mb-1" }, [
-                                _vm._v(_vm._s(tariff.name))
-                              ]),
-                              _vm._v(" "),
-                              _c("small", [_vm._v("$ " + _vm._s(tariff.price))])
-                            ]
-                          )
-                        ]
-                      )
-                    }),
-                    0
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _vm.selectedTariff
-                ? _c("div", { staticClass: "form-group row" }, [
+            !_vm.alreadySend
+              ? _c("form", [
+                  _c("div", { staticClass: "form-group row" }, [
                     _c(
                       "label",
                       {
-                        staticClass: "col-sm-12 col-form-label",
-                        attrs: { for: "inputPassword" }
+                        class: {
+                          "col-sm-2": true,
+                          "col-form-label": true,
+                          "text-danger": this.errors.hasOwnProperty("phone")
+                        }
                       },
-                      [_vm._v("Выберите первый день доставки")]
+                      [_vm._v("Телефон")]
                     ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.phone,
+                            expression: "phone"
+                          }
+                        ],
+                        class: {
+                          "form-control": true,
+                          "is-invalid": this.errors.hasOwnProperty("phone")
+                        },
+                        attrs: { type: "text", placeholder: "+79516682774" },
+                        domProps: { value: _vm.phone },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.phone = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("phone")
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(this.errors.phone[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        class: {
+                          "col-sm-2": true,
+                          "col-form-label": true,
+                          "text-danger": this.errors.hasOwnProperty("name")
+                        }
+                      },
+                      [_vm._v("Имя")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.name,
+                            expression: "name"
+                          }
+                        ],
+                        class: {
+                          "form-control": true,
+                          "is-invalid": this.errors.hasOwnProperty("name")
+                        },
+                        attrs: { type: "text", placeholder: "+79516682774" },
+                        domProps: { value: _vm.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.name = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("name")
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(this.errors.name[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c(
+                      "label",
+                      {
+                        class: {
+                          "col-sm-2": true,
+                          "col-form-label": true,
+                          "text-danger": this.errors.hasOwnProperty("address")
+                        }
+                      },
+                      [_vm._v("Адрес")]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col-sm-10" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.address,
+                            expression: "address"
+                          }
+                        ],
+                        class: {
+                          "form-control": true,
+                          "is-invalid": this.errors.hasOwnProperty("address")
+                        },
+                        attrs: { type: "text", placeholder: "+79516682774" },
+                        domProps: { value: _vm.address },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.address = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.errors.hasOwnProperty("address")
+                        ? _c("small", { staticClass: "text-danger" }, [
+                            _vm._v(_vm._s(this.errors.address[0]))
+                          ])
+                        : _vm._e()
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group row" }, [
+                    _c("label", { staticClass: "col-sm-12 col-form-label" }, [
+                      _vm._v("Выберите тариф")
+                    ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "col-sm-12" }, [
                       _c(
-                        "ul",
-                        {
-                          staticClass:
-                            "list-group list-group-horizontal text-center js-days-list"
-                        },
-                        _vm._l(_vm.daysOfWeek, function(day) {
+                        "div",
+                        { staticClass: "list-group" },
+                        _vm._l(_vm.tariffs, function(tariff) {
                           return _c(
-                            "label",
+                            "a",
                             {
-                              staticClass:
-                                "list-group-item list-group-item-action"
+                              class: _vm.getTariffClasses(tariff.id),
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.selectTariff(tariff)
+                                }
+                              }
                             },
                             [
                               _c(
                                 "div",
                                 {
-                                  class: _vm.dayOfWeekIsAllowed(
-                                    _vm.daysOfWeek.indexOf(day)
-                                  )
-                                    ? ""
-                                    : "disabled"
+                                  staticClass:
+                                    "d-flex w-100 justify-content-between"
                                 },
                                 [
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.firstDay,
-                                        expression: "firstDay"
-                                      }
-                                    ],
-                                    attrs: {
-                                      type: "radio",
-                                      name: "day",
-                                      disabled: _vm.dayOfWeekIsAllowed(
-                                        _vm.daysOfWeek.indexOf(day)
-                                      )
-                                        ? false
-                                        : true
-                                    },
-                                    domProps: {
-                                      value: _vm.daysOfWeek.indexOf(day) + 1,
-                                      checked: _vm._q(
-                                        _vm.firstDay,
-                                        _vm.daysOfWeek.indexOf(day) + 1
-                                      )
-                                    },
-                                    on: {
-                                      change: function($event) {
-                                        _vm.firstDay =
-                                          _vm.daysOfWeek.indexOf(day) + 1
-                                      }
-                                    }
-                                  }),
+                                  _c("h5", { staticClass: "mb-1" }, [
+                                    _vm._v(_vm._s(tariff.name))
+                                  ]),
                                   _vm._v(" "),
-                                  _c("br"),
-                                  _vm._v(
-                                    "\n                      " +
-                                      _vm._s(day) +
-                                      "\n                    "
-                                  )
+                                  _c("small", [
+                                    _vm._v("$ " + _vm._s(tariff.price))
+                                  ])
                                 ]
                               )
                             ]
@@ -38269,24 +38198,122 @@ var render = function() {
                         0
                       )
                     ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  attrs: { type: "submit", disabled: !_vm.isSendAvailable() },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.send()
-                    }
-                  }
-                },
-                [_vm._v("Заказать")]
-              )
-            ])
+                  ]),
+                  _vm._v(" "),
+                  _vm.selectedTariff
+                    ? _c("div", { staticClass: "form-group row" }, [
+                        _c(
+                          "label",
+                          {
+                            staticClass: "col-sm-12 col-form-label",
+                            attrs: { for: "inputPassword" }
+                          },
+                          [_vm._v("Выберите первый день доставки")]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "col-sm-12" }, [
+                          _c(
+                            "ul",
+                            {
+                              staticClass:
+                                "list-group list-group-horizontal text-center js-days-list"
+                            },
+                            _vm._l(_vm.daysOfWeek, function(day) {
+                              return _c(
+                                "label",
+                                {
+                                  staticClass:
+                                    "list-group-item list-group-item-action"
+                                },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      class: _vm.dayOfWeekIsAllowed(
+                                        _vm.daysOfWeek.indexOf(day)
+                                      )
+                                        ? ""
+                                        : "disabled"
+                                    },
+                                    [
+                                      _c("input", {
+                                        directives: [
+                                          {
+                                            name: "model",
+                                            rawName: "v-model",
+                                            value: _vm.firstDay,
+                                            expression: "firstDay"
+                                          }
+                                        ],
+                                        attrs: {
+                                          type: "radio",
+                                          name: "day",
+                                          disabled: _vm.dayOfWeekIsAllowed(
+                                            _vm.daysOfWeek.indexOf(day)
+                                          )
+                                            ? false
+                                            : true
+                                        },
+                                        domProps: {
+                                          value:
+                                            _vm.daysOfWeek.indexOf(day) + 1,
+                                          checked: _vm._q(
+                                            _vm.firstDay,
+                                            _vm.daysOfWeek.indexOf(day) + 1
+                                          )
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            _vm.firstDay =
+                                              _vm.daysOfWeek.indexOf(day) + 1
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("br"),
+                                      _vm._v(
+                                        "\n                      " +
+                                          _vm._s(day) +
+                                          "\n                    "
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            }),
+                            0
+                          )
+                        ])
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: {
+                        type: "submit",
+                        disabled: !_vm.isSendAvailable()
+                      },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.send()
+                        }
+                      }
+                    },
+                    [_vm._v("Заказать")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.alreadySend
+              ? _c("h3", [
+                  _vm._v(
+                    "\n            Ваша заявка успешно отправлена\n          "
+                  )
+                ])
+              : _vm._e()
           ])
         ])
       ])

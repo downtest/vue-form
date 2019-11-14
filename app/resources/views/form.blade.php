@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+@extends('layouts.app')
 
-        <link rel="stylesheet" href="{{mix('css/app.css')}}">
+@section('breadcrumbs')
+    <li class="breadcrumb-item">
+        <a href="/clients">Список клиентов</a>
+    </li>
+@endsection
 
-        <title>Roman Morozov Form</title>
-    </head>
-    <body>
-        <div id="app">
-            <order-form></order-form>
-        </div>
-
-        <script type="text/javascript" src="{{mix('js/app.js')}}"></script>
-    </body>
-</html>
+@section('content')
+    <order-form></order-form>
+@endsection

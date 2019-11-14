@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', 'OrderController@index');
+Route::get('', 'OrderController@index');
 
-Route::post('/get-tariffs', 'OrderController@getTariffs');
+Route::get('clients', 'ClientController@index');
+
+Route::post('get-tariffs', 'OrderController@getTariffs');
 
 Route::post('order', 'OrderController@order');

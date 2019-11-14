@@ -13,6 +13,6 @@ class Client extends Model
 
     public function tariffs()
     {
-    	return $this->belongsToMany('App\Tariff');
+    	return $this->belongsToMany('App\Tariff')->withPivot('first_day', 'address', 'created_at');
     }
 }

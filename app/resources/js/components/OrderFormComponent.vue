@@ -4,11 +4,11 @@
     <div class="col-md-8">
 
       <div class="card">
-        <div class="card-header">GrowFood Форма заказа</div>
+        <div class="card-header">Форма заказа</div>
 
         <div class="card-body">
 
-          <form>
+          <form v-if="!alreadySend">
 
             <div class="form-group row">
               <label :class="{
@@ -115,6 +115,10 @@
 
           </form>
 
+          <h3 v-if="alreadySend">
+            Ваша заявка успешно отправлена
+          </h3>
+
         </div>
       </div>
 
@@ -143,6 +147,7 @@
         ],
         firstDay: null,
         errors: {},
+        alreadySend: false,
       }
     },
     mounted() {
@@ -205,13 +210,20 @@
         })
           .then(data => {return data.json()})
           .then(data => {
+            // Обрабатываем ошибки валидации
             if (!data.status) {
               this.errors = data.errors;
               for (var error in data.errors) {
                 console.log(error, 'index')
                 console.log(data.errors[error])
               }
+              return;
+            } else {
+              this.errors = null;
             }
+
+            // Успешная отправка
+            this.alreadySend = true;
           });
 
         return false
