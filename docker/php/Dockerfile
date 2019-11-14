@@ -1,7 +1,7 @@
-ARG USER_ID
-ARG GROUP_ID
-
 FROM php:7.3-fpm-alpine3.9
+
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 WORKDIR /var/www/html
 
