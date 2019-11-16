@@ -23,7 +23,6 @@ services:
       - ./app:/var/www/html
     expose: 
       - 9000
-    command: bash -c "composer install && php artisan migrate"
 
   node:
     image: node:8.16.1-alpine
