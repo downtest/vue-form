@@ -17,11 +17,9 @@ RUN apk add --no-cache $PHPIZE_DEPS \
     && pecl install xdebug-2.7.2 \
     && docker-php-ext-enable redis xdebug pdo pdo_pgsql pgsql \
 
-
     # Git
     && apk update \
     && apk add git \
-
 
     # Устанавливаем composer
     && echo "Устанавливаем composer" \
